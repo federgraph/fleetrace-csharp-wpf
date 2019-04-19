@@ -1,0 +1,29 @@
+﻿<UserControl 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="FR73.Tabs.EventTab"
+    MinWidth="400" MinHeight="150">
+    <Grid x:Name="EventRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ToolBarTray Grid.Row="0">
+            <ToolBar>
+                <Button Name="PointsBtn">Points</Button>
+                <Button Name="FinishBtn">Finish</Button>
+                <Button Name="StrictBtn">Strict</Button>
+                <Button Name="DollarBtn" Width="20">Rx</Button>
+                <Button Name="ThrowoutMinusBtn" Width="20">T-</Button>
+                <Button Name="ThrowoutPlusBtn" Width="20">T+</Button>
+                <Button Name="UndoBtn">Undo</Button>
+                <Button Name="RedoBtn">Redo</Button>
+                <Button Name="UpdateBtn">Update</Button>
+                <Button Name="ColorBtn">Color</Button>
+                <Button Name="SelectRaceBtn">Select</Button>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid Name="EventView" Grid.Row="1">
+        </Grid>
+    </Grid>
+</UserControl>

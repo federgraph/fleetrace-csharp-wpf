@@ -1,0 +1,39 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="FR73.Tabs.ReportTab"
+    MinWidth="400" MinHeight="300">
+    <Grid x:Name="ReportRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ToolBarTray Grid.Row="0">
+            <ToolBar>
+                <Button Name="SourceBtn">Source</Button>
+                <Button Name="TxtBtn">Txt</Button>
+                <Button Name="XmlBtn">Xml</Button>
+                <Button Name="HtmlBtn">Html</Button>
+                <Button Name="JsonBtn">Json</Button>
+                <Button Name="HashBtn">Hash</Button>
+           </ToolBar>
+        </ToolBarTray>
+        <TextBox Name="TestMemo" Grid.Row="1"
+                             Margin="5"                             
+                             AcceptsReturn="True"
+                             FontFamily="Courier New" FontSize="14" 
+                             Text="TestMemo"                             
+                             VerticalScrollBarVisibility="Visible"
+                 Background="Bisque"
+                             >
+        </TextBox>
+        <TextBox Name="Memo" Grid.Row="2"
+                             Margin="5"                             
+                             AcceptsReturn="True"
+                             FontFamily="Courier New" FontSize="14" 
+                             Text="Memo"                             
+                             VerticalScrollBarVisibility="Visible" TextWrapping="NoWrap">
+        </TextBox>
+    </Grid>
+</UserControl>

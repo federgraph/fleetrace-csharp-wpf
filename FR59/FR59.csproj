@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78924C0D-7DA1-409D-B6B4-17C181DBA109}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FR59</RootNamespace>
+    <AssemblyName>FR59</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RS04\Entry.cs" />
+    <Compile Include="RS04\EntryList.cs" />
+    <Compile Include="RS04\Finish.cs" />
+    <Compile Include="RS04\FinishList.cs" />
+    <Compile Include="RS04\FinishPosition.cs" />
+    <Compile Include="RS04\Penalty.cs" />
+    <Compile Include="RS04\Points.cs" />
+    <Compile Include="RS04\Proxy.cs" />
+    <Compile Include="RS04\ProxyLoader.cs" />
+    <Compile Include="RS04\Race.cs" />
+    <Compile Include="RS04\RaceList.cs" />
+    <Compile Include="RS04\RacePoints.cs" />
+    <Compile Include="RS04\RacePointsList.cs" />
+    <Compile Include="RS04\Regatta.cs" />
+    <Compile Include="RS04\ScoringBonusPoint.cs" />
+    <Compile Include="RS04\ScoringBonusPointDSV.cs" />
+    <Compile Include="RS04\ScoringException.cs" />
+    <Compile Include="RS04\ScoringLowPoint.cs" />
+    <Compile Include="RS04\ScoringManager.cs" />
+    <Compile Include="RS04\ScoringModel.cs" />
+    <Compile Include="RS04\ScoringTiebreaker.cs" />
+    <Compile Include="RS04\SeriesPoints.cs" />
+    <Compile Include="RS04\SeriesPointsList.cs" />
+    <Compile Include="RS04\Utils.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

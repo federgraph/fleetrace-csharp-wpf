@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F76775BF-BA65-4719-A039-9B58CD42D239}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RiggVar.FR</RootNamespace>
+    <AssemblyName>FR61WPG</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\Commands.cs" />
+    <Compile Include="App\Controller.cs" />
+    <Compile Include="App\TGuiManager.cs" />
+    <Compile Include="BO\AdapterBO.cs" />
+    <Compile Include="BO\AdapterParams.cs" />
+    <Compile Include="BO\BaseBO.cs" />
+    <Compile Include="BO\BaseFormAdapter.cs" />
+    <Compile Include="BO\BaseMsg.cs" />
+    <Compile Include="BO\BaseMsgParser.cs" />
+    <Compile Include="BO\BaseMsgTree.cs" />
+    <Compile Include="BO\BO.cs" />
+    <Compile Include="BO\BOComputer.cs" />
+    <Compile Include="BO\BOContainer.cs" />
+    <Compile Include="BO\BOIntf.cs" />
+    <Compile Include="BO\BOManager.cs" />
+    <Compile Include="BO\BOWriter.cs" />
+    <Compile Include="BO\BOWriterJson.cs" />
+    <Compile Include="BO\CacheMotor.cs" />
+    <Compile Include="BO\DefaultData.cs" />
+    <Compile Include="BO\DocManager.cs" />
+    <Compile Include="BO\DrawNotifier.cs" />
+    <Compile Include="BO\Entry.cs" />
+    <Compile Include="BO\ErrorList.cs" />
+    <Compile Include="BO\EventProps.cs" />
+    <Compile Include="BO\ExcelExport.cs" />
+    <Compile Include="BO\ExcelImport.cs" />
+    <Compile Include="BO\FolderInfo.cs" />
+    <Compile Include="BO\ICacheMotor.cs" />
+    <Compile Include="BO\Msg.cs" />
+    <Compile Include="BO\MsgContext.cs" />
+    <Compile Include="BO\MsgParser.cs" />
+    <Compile Include="BO\MsgService.cs" />
+    <Compile Include="BO\MsgTree.cs" />
+    <Compile Include="BO\NodeList.cs" />
+    <Compile Include="BO\Params.cs" />
+    <Compile Include="BO\Publisher.cs" />
+    <Compile Include="BO\SoundManager.cs" />
+    <Compile Include="BO\StammdatenBackup.cs" />
+    <Compile Include="BO\StatusFeedback.cs" />
+    <Compile Include="BO\UndoAgent.cs" />
+    <Compile Include="BO\UndoManager.cs" />
+    <Compile Include="BridgeServer\BridgeConnector.cs" />
+    <Compile Include="BridgeServer\BridgeHandler.cs" />
+    <Compile Include="BridgeServer\BridgeProt.cs" />
+    <Compile Include="BridgeServer\BridgeServiceImpl.cs" />
+    <Compile Include="BridgeServer\BridgeWeb.cs" />
+    <Compile Include="BridgeServer\LocalBridge.cs" />
+    <Compile Include="BridgeServer\MergMsgRing.cs" />
+    <Compile Include="BridgeServer\MsgRing.cs" />
+    <Compile Include="BridgeServer\ServerBridge.cs" />
+    <Compile Include="Bridge\AsynchronBridge.cs" />
+    <Compile Include="Bridge\BridgeClient.cs" />
+    <Compile Include="Bridge\BridgeController.cs" />
+    <Compile Include="Bridge\BridgeService.cs" />
+    <Compile Include="Bridge\BridgeSocket.cs" />
+    <Compile Include="Bridge\ClientBridge.cs" />
+    <Compile Include="Bridge\CombiBridge.cs" />
+    <Compile Include="Bridge\OutputController.cs" />
+    <Compile Include="Bridge\PeerController.cs" />
+    <Compile Include="Bridge\PeerManager.cs" />
+    <Compile Include="Bridge\ProxyBridge.cs" />
+    <Compile Include="Bridge\RESTBridge.cs" />
+    <Compile Include="Bridge\SwitchController.cs" />
+    <Compile Include="Calc\CalcEV.cs" />
+    <Compile Include="Calc\CalcRS01.cs" />
+    <Compile Include="Calc\CalcRS03.cs" />
+    <Compile Include="Calc\CalcRS04.cs" />
+    <Compile Include="Calc\CalcRS06.cs" />
+    <Compile Include="Calc\CalcTP.cs" />
+    <Compile Include="Calc\JavaScoreXML.cs" />
+    <Compile Include="Calc\PenaltyISAF.cs" />
+    <Compile Include="Calc\QProxy.cs" />
+    <Compile Include="Calc\ResultHash.cs" />
+    <Compile Include="Calc\RunStatus.cs" />
+    <Compile Include="Calc\Status.cs" />
+    <Compile Include="Calc\Time.cs" />
+    <Compile Include="Calc\UniquaPoints.cs" />
+    <Compile Include="Col\Cache\CacheBO.cs" />
+    <Compile Include="Col\Cache\CacheColProp.cs" />
+    <Compile Include="Col\Cache\CacheGrid.cs" />
+    <Compile Include="Col\Cache\CacheNode.cs" />
+    <Compile Include="Col\Cache\CacheRowCollection.cs" />
+    <Compile Include="Col\Cache\CacheRowCollectionItem.cs" />
+    <Compile Include="Col\Cache\OutputCache.cs" />
+    <Compile Include="Col\ColBridge.cs" />
+    <Compile Include="Col\ColCache.cs" />
+    <Compile Include="Col\ColCaptions.cs" />
+    <Compile Include="Col\ColEvent.cs" />
+    <Compile Include="Col\ColNameField.cs" />
+    <Compile Include="Col\ColNameValue.cs" />
+    <Compile Include="Col\ColOutput.cs" />
+    <Compile Include="Col\ColRace.cs" />
+    <Compile Include="Col\ColStammdaten.cs" />
+    <Compile Include="Col\ColSwitch.cs" />
+    <Compile Include="Col\Event\EventBO.cs" />
+    <Compile Include="Col\Event\EventColProp.cs" />
+    <Compile Include="Col\Event\EventEntry.cs" />
+    <Compile Include="Col\Event\EventEnums.cs" />
+    <Compile Include="Col\Event\EventNode.cs" />
+    <Compile Include="Col\Event\EventRaceEntry.cs" />
+    <Compile Include="Col\Event\EventRemoteObject.cs" />
+    <Compile Include="Col\Event\EventRowCollection.cs" />
+    <Compile Include="Col\Event\EventRowCollectionItem.cs" />
+    <Compile Include="Col\NameField\NameFieldBO.cs" />
+    <Compile Include="Col\NameField\NameFieldColProp.cs" />
+    <Compile Include="Col\NameField\NameFieldMap.cs" />
+    <Compile Include="Col\NameField\NameFieldNode.cs" />
+    <Compile Include="Col\NameField\NameFieldRowCollection.cs" />
+    <Compile Include="Col\NameField\NameFieldRowCollectionItem.cs" />
+    <Compile Include="Col\NameValue\NameValueBO.cs" />
+    <Compile Include="Col\NameValue\NameValueColProp.cs" />
+    <Compile Include="Col\NameValue\NameValueNode.cs" />
+    <Compile Include="Col\NameValue\NameValueRowCollection.cs" />
+    <Compile Include="Col\NameValue\NameValueRowCollectionItem.cs" />
+    <Compile Include="Col\Race\RaceBO.cs" />
+    <Compile Include="Col\Race\RaceColProp.cs" />
+    <Compile Include="Col\Race\RaceEntry.cs" />
+    <Compile Include="Col\Race\RaceNode.cs" />
+    <Compile Include="Col\Race\RaceRemoteObject.cs" />
+    <Compile Include="Col\Race\RaceRowCollection.cs" />
+    <Compile Include="Col\Race\RaceRowCollectionItem.cs" />
+    <Compile Include="Col\Race\TimePoint.cs" />
+    <Compile Include="Col\Race\TimePointEntry.cs" />
+    <Compile Include="Col\Stammdaten\FieldNames.cs" />
+    <Compile Include="Col\Stammdaten\StammdatenBO.cs" />
+    <Compile Include="Col\Stammdaten\StammdatenColProp.cs" />
+    <Compile Include="Col\Stammdaten\StammdatenNode.cs" />
+    <Compile Include="Col\Stammdaten\StammdatenRemoteObject.cs" />
+    <Compile Include="Col\Stammdaten\StammdatenRowCollection.cs" />
+    <Compile Include="Col\Stammdaten\StammdatenRowCollectionItem.cs" />
+    <Compile Include="Conn\AdaperBaseNCP.cs" />
+    <Compile Include="Conn\AdaperOutputNCP.cs" />
+    <Compile Include="Conn\AdapterBufferNCP.cs" />
+    <Compile Include="Conn\AdapterInputNCP.cs" />
+    <Compile Include="Conn\BaseNCP.cs" />
+    <Compile Include="Conn\Connection.cs" />
+    <Compile Include="Conn\ConnectionIntern.cs" />
+    <Compile Include="Conn\ConnectionSocket.cs" />
+    <Compile Include="Conn\DelphiCollection.cs" />
+    <Compile Include="Conn\HttpBridgeClient.cs" />
+    <Compile Include="Conn\InputNCP.cs" />
+    <Compile Include="Conn\OutputNCP.cs" />
+    <Compile Include="Conn\RESTConnection.cs" />
+    <Compile Include="Conn\RouterNCP.cs" />
+    <Compile Include="DAL\FR11_DAL.cs" />
+    <Compile Include="DAL\FR11_DAL_Factory.cs" />
+    <Compile Include="DAL\FR11_DAL_MDB.cs" />
+    <Compile Include="DAL\FR11_DAL_ModuleDefs.cs" />
+    <Compile Include="DAL\FR11_DAL_ModuleManager.cs" />
+    <Compile Include="DAL\FR11_DAL_MSSQL.cs" />
+    <Compile Include="DAL\FR11_DAL_Redirector.cs" />
+    <Compile Include="DAL\FR11_DAL_WSCall.cs" />
+    <Compile Include="DAL\FR11_DAL_XML.cs" />
+    <Compile Include="DAL\FR42_DAL_DB.cs" />
+    <Compile Include="DAL\FR42_DAL_Factory.cs" />
+    <Compile Include="DAL\FR42_DAL_MDB.cs" />
+    <Compile Include="DAL\FR42_DAL_SQL.cs" />
+    <Compile Include="DAL\FR42_DAL_XML.cs" />
+    <Compile Include="DB\DBWorkspace.cs" />
+    <Compile Include="DB\RemoteWorkspace.cs" />
+    <Compile Include="DB\WorkspaceFiles.cs" />
+    <Compile Include="DB\WorkspaceInfo.cs" />
+    <Compile Include="DB\WorkspaceManager.cs" />
+    <Compile Include="DB\WorkspaceRepo.cs" />
+    <Compile Include="DB\WorkspaceWeb.cs" />
+    <Compile Include="DM\DM_Factory.cs" />
+    <Compile Include="DM\DM_MDB.cs" />
+    <Compile Include="DM\DM_Mock.cs" />
+    <Compile Include="DM\DM_RemoteWorkspace.cs" />
+    <Compile Include="DM\DM_REST.cs" />
+    <Compile Include="DM\DM_TXT.cs" />
+    <Compile Include="DM\DM_Web.cs" />
+    <Compile Include="GD\SimpleColDefs.cs" />
+    <Compile Include="GD\SimpleCellGrid.cs" />
+    <Compile Include="Grid\BaseColBO.cs" />
+    <Compile Include="Grid\BaseColProp.cs" />
+    <Compile Include="Grid\BaseColProps.cs" />
+    <Compile Include="Grid\BaseNode.cs" />
+    <Compile Include="Grid\BaseRowCollection.cs" />
+    <Compile Include="Grid\BaseRowCollectionItem.cs" />
+    <Compile Include="Grid\BOPersistent.cs" />
+    <Compile Include="Grid\CellProps.cs" />
+    <Compile Include="Grid\ColCaptionBag.cs" />
+    <Compile Include="Grid\ColDelegates.cs" />
+    <Compile Include="Grid\ColEnums.cs" />
+    <Compile Include="Grid\ColGrid.cs" />
+    <Compile Include="Grid\ColGridColors.cs" />
+    <Compile Include="Grid\DisplayOrderList.cs" />
+    <Compile Include="Grid\GridCells.cs" />
+    <Compile Include="Grid\GridUpdate.cs" />
+    <Compile Include="Grid\IColGrid.cs" />
+    <Compile Include="Grid\SimpleHashGrid.cs" />
+    <Compile Include="Ini\BaseIniImage.cs" />
+    <Compile Include="Ini\ConfiSections.cs" />
+    <Compile Include="Ini\DBConfig.cs" />
+    <Compile Include="Ini\IniDB.cs" />
+    <Compile Include="Ini\IniImage.cs" />
+    <Compile Include="Ini\IniInspector.cs" />
+    <Compile Include="Ini\IniLoader.cs" />
+    <Compile Include="Ini\IniLoaderAppSettings.cs" />
+    <Compile Include="Ini\IniLoaderDefault.cs" />
+    <Compile Include="Ini\IniLoaderNameValue.cs" />
+    <Compile Include="Ini\IniLoaderXml.cs" />
+    <Compile Include="Ini\IniModifier.cs" />
+    <Compile Include="Ini\IniModifierFR.cs" />
+    <Compile Include="Out\BaseOutput.cs" />
+    <Compile Include="Out\EventColReport.cs" />
+    <Compile Include="Out\Output.cs" />
+    <Compile Include="Out\Output00.cs" />
+    <Compile Include="Out\Output01.cs" />
+    <Compile Include="Out\Output02.cs" />
+    <Compile Include="Out\Output03.cs" />
+    <Compile Include="Out\Output04.cs" />
+    <Compile Include="Out\Output05.cs" />
+    <Compile Include="Out\Output06.cs" />
+    <Compile Include="Out\RaceColReport.cs" />
+    <Compile Include="Out\RaceDataXML.cs" />
+    <Compile Include="PlatformDiff.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\FRServiceProxy.cs" />
+    <Compile Include="Proxy\RemoteWorkspaceProxy.cs" />
+    <Compile Include="Proxy\WorkspaceFilesProxy.cs" />
+    <Compile Include="StatusCache.cs" />
+    <Compile Include="Util\ColorMatrix.cs" />
+    <Compile Include="Util\EnumSet.cs" />
+    <Compile Include="Util\LineParser.cs" />
+    <Compile Include="Util\Logger.cs" />
+    <Compile Include="Util\MemoLogger.cs" />
+    <Compile Include="Util\PerformanceCounter.cs" />
+    <Compile Include="Util\Props.cs" />
+    <Compile Include="Util\SLIterator.cs" />
+    <Compile Include="Util\Trace.cs" />
+    <Compile Include="Util\TStringList.cs" />
+    <Compile Include="Util\TStrings.cs" />
+    <Compile Include="Util\Utils.cs" />
+    <Compile Include="Util\Watches.cs" />
+    <Compile Include="Util\XmlConverter.cs" />
+    <Compile Include="Util\XmlGenerator.cs" />
+    <Compile Include="Web\WebAction.cs" />
+    <Compile Include="Web\WebCommand.cs" />
+    <Compile Include="Web\WebReceiver.cs" />
+    <Compile Include="Web\WebReceiverBase.cs" />
+    <Compile Include="Web\WebStringList.cs" />
+    <Compile Include="Web\WebStub.cs" />
+    <Compile Include="Web\WebUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FR59\FR59.csproj">
+      <Project>{78924C0D-7DA1-409D-B6B4-17C181DBA109}</Project>
+      <Name>FR59</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
