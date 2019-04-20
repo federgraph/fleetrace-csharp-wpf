@@ -14,9 +14,9 @@ namespace RiggVar.FR
         public static int eaOTime = 3;
 
         public static int TimeStatus_None = 0;  //no time present, may still arrive
-        public static int TimeStatus_Auto = 1; //time presentn, automatically set
+        public static int TimeStatus_Auto = 1; //time present, automatically set
         public static int TimeStatus_Man = 2; //time present, manually set
-        public static int TimeStatus_TimePresent = 3; //time present, don't know how
+        public static int TimeStatus_TimePresent = 3; //time present, don't know how it was set
         public static int TimeStatus_Penalty = 4; //penalty time, automatically set
 
         public static int TimeNull = int.MaxValue;
@@ -73,7 +73,7 @@ namespace RiggVar.FR
 
         private string FormatNumber4(int aNumber)
         {
-            //result := Format('%.4d', [aNumber]); //this is Pascal code
+            //result := Format('%.4d', [aNumber]); //this is from Delphi/Pascal code
             return aNumber.ToString("D4");
         }
 
@@ -228,20 +228,20 @@ namespace RiggVar.FR
             }
         }
 
-        private string LeadingZeros(int anz, string sIn)
+        private string LeadingZeros(int count, string sIn)
         {
-            //ensure that the string has the right number of digits (anz = Anzahl = Count)
+            // ensure that the string has the right number of digits
             string hs; //help string
             hs = string.Empty;
-            //make help string of zeros, which is long enough
-            for (int i = 1; i <= anz; i++)
+            // make help string of zeros, which is long enough
+            for (int i = 1; i <= count; i++)
             {
                 hs = hs + "0";
             }
-            //put it in front
+            // put it in front
             hs = hs + sIn;
-            //and take/copy from the right
-            return Utils.Copy(hs, hs.Length - anz + 1, anz);
+            // and take/copy from the right
+            return Utils.Copy(hs, hs.Length - count + 1, count);
         }
 
         private string CheckTime(string TimeStr)
@@ -257,10 +257,10 @@ namespace RiggVar.FR
                 return string.Empty;
             }
             TimeStr2 = string.Empty;
-            //find first dot
+            // find first dot
             dotpos = Utils.Pos(".", TimeStr);
             lastdd = dotpos;
-            //also check for comma, just in case 
+            // also check for comma, just in case 
             dotpos = Utils.Pos(",", TimeStr);
 
             if ((lastdd == 0) && (dotpos == 0))
@@ -270,11 +270,11 @@ namespace RiggVar.FR
             }
             if ((lastdd == 0) && (dotpos > 0))
             {
-                lastdd = dotpos; //comma
+                lastdd = dotpos; // comma
             }
             else if (lastdd > 0)
             {
-                dotpos = lastdd; //dot
+                dotpos = lastdd; // dot
             }
 
             // first check characters before the decimal separator (comma or dot)
@@ -284,11 +284,11 @@ namespace RiggVar.FR
                 char c = TimeStr[i-1];
                 if (c == ':')
                 {
-                    if (lastdd > 0) //decimal char already found
+                    if (lastdd > 0) // decimal char already found
                     {
                         if (lastdd - i < 3) // we want 2 digits
                         {
-                            TimeStr2 = "0" + TimeStr2; //use leading zero
+                            TimeStr2 = "0" + TimeStr2; // use leading zero
                         }
                     }
 
@@ -296,8 +296,8 @@ namespace RiggVar.FR
                 }
                 else if ((c >= '0') && (c <= '9'))
                 {
-                    //if it was a number (at least)
-                    TimeStr2 = TimeStr[i-1] + TimeStr2; //use it
+                    // if it was a number (at least)
+                    TimeStr2 = TimeStr[i-1] + TimeStr2; // use it
                 }
             }
             TimeStr2 = LeadingZeros(6, TimeStr2);
@@ -363,7 +363,7 @@ namespace RiggVar.FR
             }
             else
             {
-                temp = temp + "00"; //never start with decimal, always print seconds
+                temp = temp + "00"; // never start with decimal, always print seconds
             }
 
             // append a 'template' with four digits after the decimal
@@ -393,7 +393,7 @@ namespace RiggVar.FR
             // example: 1:02.03
             // 00010200 --> 6200
 
-            // note that ConvertStrToTime2 will only pass the pre-decimal part as param to this function
+            // note that ConvertStrToTime2 will only pass the pre-decimal part as param to this function (* 100)
 
             int i, j;
             int k;
@@ -546,7 +546,7 @@ namespace RiggVar.FR
             }
 
             // find a dot, this is the default
-            int dotpos = TimeStr.LastIndexOf('.'); //decimal point position
+            int dotpos = TimeStr.LastIndexOf('.'); // decimal point position
             int lastcolon = dotpos;
 
             // find last comma
