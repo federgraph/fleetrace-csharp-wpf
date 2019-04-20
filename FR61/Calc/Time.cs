@@ -3,6 +3,7 @@
 namespace RiggVar.FR
 {
 
+    // TimeConst is from other sport, not sailing, but I will leave it in here.
     public class TimeConst
     {
         public static int cRun1 = 1;
@@ -12,11 +13,11 @@ namespace RiggVar.FR
         public static int eaStatus = 2;
         public static int eaOTime = 3;
 
-        public static int TimeStatus_None = 0;  //noch keine Zeit da, kann aber noch kommen
-        public static int TimeStatus_Auto = 1; //Zeit vorhanden, zuletzt automatisch gesetzt
-        public static int TimeStatus_Man = 2; //Zeit vorhanden, zuletzt von Hand gesetzt
-        public static int TimeStatus_TimePresent = 3; //Zeit vorhanden, weiß nicht wie eingetragen
-        public static int TimeStatus_Penalty = 4; //Penaltytime wurde automatisch eingetragen
+        public static int TimeStatus_None = 0;  //no time present, may still arrive
+        public static int TimeStatus_Auto = 1; //time presentn, automatically set
+        public static int TimeStatus_Man = 2; //time present, manually set
+        public static int TimeStatus_TimePresent = 3; //time present, don't know how
+        public static int TimeStatus_Penalty = 4; //penalty time, automatically set
 
         public static int TimeNull = int.MaxValue;
 
@@ -72,7 +73,7 @@ namespace RiggVar.FR
 
         private string FormatNumber4(int aNumber)
         {
-            //result := Format('%.4d', [aNumber]);
+            //result := Format('%.4d', [aNumber]); //this is Pascal code
             return aNumber.ToString("D4");
         }
 
@@ -103,7 +104,7 @@ namespace RiggVar.FR
             sHour = FormatNumber2(h);
             sMin = FormatNumber2(m);
             sSec = FormatNumber2(s);
-            sSubSec = FormatNumber2(ss / 100); //Hundertstel
+            sSubSec = FormatNumber2(ss / 100); // 2 subsecond digits
         }
 
         public string AsString()
@@ -216,7 +217,7 @@ namespace RiggVar.FR
         
         private string EnsureLeadingZero(int Value)
         {
-            // Setzt eine Null vor einstellige Zahlen
+            // put a 0 in front of one digit numbers
             if (Value < 10)
             {
                 return "0" + Value.ToString();
@@ -229,17 +230,17 @@ namespace RiggVar.FR
 
         private string LeadingZeros(int anz, string sIn)
         {
-            //Füllt einen String auf die Länge 'anz' mit führenden Nullen auf
-            string hs; //helpstring
+            //ensure that the string has the right number of digits (anz = Anzahl = Count)
+            string hs; //help string
             hs = string.Empty;
-            //erstmal anz Nullen holen
+            //make help string of zeros, which is long enough
             for (int i = 1; i <= anz; i++)
             {
                 hs = hs + "0";
             }
-            //davorsetzen
+            //put it in front
             hs = hs + sIn;
-            //und rechtsbündig auslesen
+            //and take/copy from the right
             return Utils.Copy(hs, hs.Length - anz + 1, anz);
         }
 
@@ -256,10 +257,10 @@ namespace RiggVar.FR
                 return string.Empty;
             }
             TimeStr2 = string.Empty;
-            //ersten Punkt suchen
+            //find first dot
             dotpos = Utils.Pos(".", TimeStr);
             lastdd = dotpos;
-            //wurde entgegen den Regeln doch ein Komma eingegeben
+            //also check for comma, just in case 
             dotpos = Utils.Pos(",", TimeStr);
 
             if ((lastdd == 0) && (dotpos == 0))
@@ -269,44 +270,43 @@ namespace RiggVar.FR
             }
             if ((lastdd == 0) && (dotpos > 0))
             {
-                lastdd = dotpos; //es war ein Komma
+                lastdd = dotpos; //comma
             }
             else if (lastdd > 0)
             {
-                dotpos = lastdd; //es war ein Punkt
+                dotpos = lastdd; //dot
             }
 
-            //die Zeichen vor dem Komma/Punkt überprüfen
+            // first check characters before the decimal separator (comma or dot)
             for (int i = dotpos - 1; i >= 1; i--)
             {
-                //Zeichen �berpr�fen
+                //check characters
                 char c = TimeStr[i-1];
                 if (c == ':')
                 {
-                    if (lastdd > 0) //gab es schon einen Punkt oder Doppelpunkt
+                    if (lastdd > 0) //decimal char already found
                     {
-                        if (lastdd - i < 3) //waren es 2 Zeichen
+                        if (lastdd - i < 3) // we want 2 digits
                         {
-                            TimeStr2 = "0" + TimeStr2; //nein, auffüllen
+                            TimeStr2 = "0" + TimeStr2; //use leading zero
                         }
                     }
 
-                    lastdd = i; //Position speichern
+                    lastdd = i; //save position
                 }
                 else if ((c >= '0') && (c <= '9'))
                 {
-                    //war es wenigstens eine Zahl
-                    TimeStr2 = TimeStr[i-1] + TimeStr2; //Zeichen übernehmen
+                    //if it was a number (at least)
+                    TimeStr2 = TimeStr[i-1] + TimeStr2; //use it
                 }
             }
-            TimeStr2 = LeadingZeros(6, TimeStr2); //führende Nullen anfügen
+            TimeStr2 = LeadingZeros(6, TimeStr2);
 
-            //die Zeichen nach dem Komma/Punkt überprüfen
+            // then check characters after the decimal (after comma or dot)
             sNachkommaChecked = string.Empty;
             sNachkomma = Utils.Copy(TimeStr, dotpos, TimeStr.Length);
             for (int i = 2; i <= sNachkomma.Length; i++)
             {
-                //das Zeichen überprüfen
                 char c = sNachkomma[i-1];
                 if ((c >= '0') && (c <= '9'))
                 {
@@ -323,10 +323,10 @@ namespace RiggVar.FR
 
         protected string ConvertTimeToStr3(int TimeVal)
         {
-            // Konvertiert einen numerischen Wert in einen String -> Format (-)HH:MM:SS.mm
-            // wobei fehlende führende Stunden/Minuten entfallen: 674326 -> '1:07.43'
-            // führende Null wird nicht ausgebeben
-            // Tausendstel und Zehntausendstel werden nicht ausgegeben
+            // Format (-)HH:MM:SS.mm
+            // without leading hours/minutes: 674326 -> '1:07.43'
+            // without leading zeros
+            // with no more than 2 digits after the decimal
             int hours, min, sec, msec;
             string temp;
             bool minus = false;
@@ -345,7 +345,7 @@ namespace RiggVar.FR
             TimeVal = TimeVal / 60;
             hours = Convert.ToInt32(TimeVal);
 
-            //fehlende führende Bestandteile nicht mit ausgeben
+            // skip what is not present (hour, minute)
             temp = string.Empty;
             if (hours > 0)
             {
@@ -363,14 +363,14 @@ namespace RiggVar.FR
             }
             else
             {
-                temp = temp + "00"; //Sekunden immer ausgeben, niemals nur mit Punkt beginnen
+                temp = temp + "00"; //never start with decimal, always print seconds
             }
 
-            //Nachkommastellen estmal komplett anhängen,
-            //davon wird am Ende nur bis zur gewünschten Stelle gelesen
+            // append a 'template' with four digits after the decimal
+            // later we will only use the part up to the desired precision
             temp = temp + "." + LeadingZeros(4, msec.ToString());
 
-            //führende Null wird nicht ausgebeben
+            // skip a leading zero
             if (temp[0] == '0')
             {
                 temp = Utils.Copy(temp, 2, temp.Length);
@@ -381,7 +381,7 @@ namespace RiggVar.FR
                 temp = "-" + temp;
             }
 
-            //Tausendstel und Zehntausendstel nicht ausgeben
+            // cut off third an fourth digit after the decimal
             temp = Utils.Copy(temp, 1, temp.Length - (4-FDisplayPrecision));
 
             return temp;
@@ -389,18 +389,16 @@ namespace RiggVar.FR
 
         private int ConvertStrToTime1(string TimeStr)
         {
-
-            // Konvertiert TimeStr in einen numerischen Wert
-            // wurde mit 'Zeit holen' verwendet
-            // Liefert Zeit als Anzahl Hundertstel
-            // Beispiel( Eine Miute, zwei Sekunden, 3 Hundertstel; also 1:02.03
-            // ConvertStrToTime2 übergibt nur den VorkommaAnteil an diese Funktion -
+            // returns time as count of hundredth of a second
+            // example: 1:02.03
             // 00010200 --> 6200
+
+            // note that ConvertStrToTime2 will only pass the pre-decimal part as param to this function
 
             int i, j;
             int k;
 
-            if (TimeStr[2] == ':') //Sonderzeichen ignorieren, wenn vorhanden
+            if (TimeStr[2] == ':') // ignore colon
             {
                 k = 1;
             }
@@ -409,46 +407,45 @@ namespace RiggVar.FR
                 k = 0;
             }
 
-            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 1, 2), 0); //Stunden
+            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 1, 2), 0); // hours
             j = i;
-            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 3 + k, 2), 0); //Minuten
+            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 3 + k, 2), 0); // minutes
             j = j * 60 + i;
-            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 5 + k * 2, 2), 0); //Sekunden
+            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 5 + k * 2, 2), 0); // seconds
             j = j * 60 + i;
-            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 7 + k * 3, 2), 0); //Hundertstel
+            i = Utils.StrToIntDef(Utils.Copy(TimeStr, 7 + k * 3, 2), 0); // hundredth of a second
             j = j * 100 + i;
             return j;
         }
 
         private int ConvertStrToTime2(string TimeStr)
         {
-            // Konvertiert TimeStr in einen numerischen Wert
-            int V; //VorkommaTeil
-            int N; //NachkommaTeil
+            int V; // part before decimal
+            int N; // part after decimal
             int pos1, pos2, posi;
             string str;
 
-            pos1 = Utils.Pos(".", TimeStr); //Sonderzeichen vorhanden?
+            pos1 = Utils.Pos(".", TimeStr);
             pos2 = Utils.Pos(",", TimeStr);
             posi = pos1 + pos2;
             if (posi > 0)
             {
-                //Vorkommastellen V
-                str = "000000" + Utils.Copy(TimeStr, 1, posi - 1) + "00"; //Vorkommastellen mit Nullen auffüllen
-                str = Utils.Copy(str, str.Length - 7, 8); //letzten 8 Zeichen nehmen
-                V = ConvertStrToTime1(str) * 100; //diese Konvertieren
-                //V jetzt in Zehntausendstel
+                // V
+                str = "000000" + Utils.Copy(TimeStr, 1, posi - 1) + "00"; // ensure there are enough digits
+                str = Utils.Copy(str, str.Length - 7, 8); // take last 8 characters
+                V = ConvertStrToTime1(str) * 100; // convert those
+                // V has now a precision of 4
 
-                //Nachkommastellen N
+                // N
                 str = Utils.Copy(TimeStr, 8, TimeStr.Length);
                 if (str.Length == 0)
                 {
                     str = "0";
                 }
-                //Runden auf Precision                
+                // round to desired precision                
                 double d = Utils.StrToIntDef(str, 0) * Math.Pow(10, FPrecision - str.Length);
                 N = Convert.ToInt32(Math.Round(d)); //Convert.ToInt64(Math.Round(d));
-                //aber intern immer Tausendstel speichern
+                // but internally always keep 4 digits after the decimal
                 for (int i = FPrecision; i <= 3; i++)
                 {
                     N = N * 10;
@@ -548,51 +545,53 @@ namespace RiggVar.FR
                 return false;
             }
 
-            //den letzten Punkt suchen (find last decimal point)
-            int dotpos = TimeStr.LastIndexOf('.');
+            // find a dot, this is the default
+            int dotpos = TimeStr.LastIndexOf('.'); //decimal point position
             int lastcolon = dotpos;
 
-            //auch nach letztem Komma suchen (find last Comma)
+            // find last comma
             dotpos = TimeStr.LastIndexOf(',');
 
-            //eventuell Punkt ergänzen (ensure decimal point)
+            // we must have a decimal point and a valid dotpos
             if ((lastcolon == -1) && (dotpos == -1))
             {
                 TimeStr = TimeStr + ".0";
                 dotpos = TimeStr.LastIndexOf('.');
             }
 
-            //Bemerkung: lastcolon und dotps werden beide auf den Dezimalpunktes gestellt
-            //dotpos wird von hier ab nicht mehr verändert
+            // lastcolon and dotpos will be set to same value
             if ((lastcolon == -1) && (dotpos > 0))
             {
-                lastcolon = dotpos; //es war ein Komma
+                lastcolon = dotpos; //decimal was comma
             }
             else if (lastcolon > 0)
             {
-                dotpos = lastcolon; //war es ein Punkt
+                dotpos = lastcolon; //decimal was dot
             }
 
-            //der Vorkommateil wird von dotpos aus nach links geparst:
-            //Sekunden zuerst, dann Minuten, dann Stunden
-            //dabei die Sonderzeichen entfernen,
-            //gegebenenfalls Nullen auffüllen (Sekunden, Minuten, Stunden, alles 2-Stellig)
+            // check the part in front of the decimal:
+            // start at the decimal and read towards the left
+            // first read seconds, then minutes, then hours
+            // remove colons as you go
             for (int i = dotpos - 1; i >= 0; i--)
             {
                 char c = TimeStr[i];
                 if (c == ':')
-                { //ok
+                { 
+                    // ok, skip the colon and continue, all is good
                 }
                 else if ((c >= '0') && (c <= '9'))
-                { //ok
+                {
+                     // ok, skip over digit and continue, all is good
                 }
                 else
                 {
-                    return false;
+                    return false; // no, this is not valid
                 }
             }
 
-            //der Nachkommateil wird von dotpos aus nach rechts geparst:
+            // check the part after the decimal
+            // start at the decimal and read towards the right
             string sNachkomma = Utils.Copy(TimeStr, dotpos+2, TimeStr.Length);
             for (int i = 0; i < sNachkomma.Length; i++)
             {
@@ -624,7 +623,7 @@ namespace RiggVar.FR
         { 
             get 
             {
-                return (FStatus != TTimeStatus.tsNone); // || (FStatus == tsDNA)
+                return (FStatus != TTimeStatus.tsNone);
             }
         }
 
@@ -668,7 +667,7 @@ namespace RiggVar.FR
         {
             get
             {
-                //Assert(FTime >= 0, "Zeit darf nicht negativ sein");
+                // Assert(FTime >= 0, "time cannot be negative");
                 if (FTime < 0)
                 {
                     FTime = 0;
